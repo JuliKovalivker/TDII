@@ -1,0 +1,99 @@
+#include <stdio.h>
+
+
+int tiene_cinco(int* p, int len){
+	for(int i = 0; i < len; i++){
+		if (*(p+i) == 5){
+			return 1; //1 si esta
+		}
+	}
+	return 0; //0 si no esta
+}
+	
+void multiplos_de_tres(int* p, int len){
+	for(int i = 0; i< len; i++){
+		if (*(p+i) % 3 == 0){
+			printf("%i\n", *(p+i));
+		}
+	}
+}
+		
+float promedio(float*p, int len){
+	float prom = 0.0;
+	for (int i = 0; i<len; i++){
+		prom += *(p+i);
+	}
+	prom = prom / len;
+	return prom;
+}
+			
+int* parityMerge(int* p1, int* p2, int len){
+	int size = len*2;
+	int merge[size];
+	int index = 0;
+	int rev_index = len*2-1;
+	for(int i = 0; i<len; i++){
+		if (*(p1+i) % 2 != 0){
+			merge[index] = *(p1 + i);
+			index++;
+		}
+		else{
+			merge[rev_index] = *(p1 + i);
+			rev_index--;
+		}
+		if (*(p2+i) % 2 != 0){
+			merge[index] = *(p2 + i);
+			index++;
+		}
+		else{
+			merge[rev_index] = *(p2 + i);
+			rev_index--;
+		}
+	}
+	for (int i = 0; i<size; i++){
+		printf("%i", merge[i]);
+	}
+	return merge;
+}
+	
+void deReverseArray(char* p, int size){
+	printf("a");
+	char temp = "a";
+	int rev_index = size -1;
+	for(int i = 0; i<size/2; i++){
+		printf("\n%c", temp);
+		temp = *(p+i);
+		*(p+i) = *(p+rev_index);
+		*(p + rev_index) = temp;
+		printf("%c", *(p+i));
+		rev_index--;
+	}
+}
+
+int main(int argc, char *argv[]) {
+	
+	//ej1 - campus
+	int arr[5] = {1, 2, 3, 4, 5};
+	int len_arr = 5;
+	printf("%i\n", tiene_cinco(arr, len_arr));
+	
+	//ej2 - campus
+	multiplos_de_tres(arr, len_arr);
+	
+	//ej3 - campus
+	float arrf[5] = {1.1, 2.2, 3.3, 4.4, 5.5};
+	printf("%f\n", promedio(arrf, len_arr));
+	
+	//ej2 - pizarron
+	int arr1[4] = {1, 2, 3, 4};
+	int arr2[4] = {5, 6, 7, 8};
+	int len2 = 4;
+	parityMerge(arr1, arr2, len2);
+	
+	//ej1 - pizarron
+	char *w = "abcd";
+	deReverseArray(w, len2);
+	printf("%s", w);
+	
+	return 0;
+}
