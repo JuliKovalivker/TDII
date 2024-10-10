@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+
+void convertToArray(struct node * list, int** array, int* size){
+	int contador = 0;
+	struct node* curr = list;
+	while (curr != 0){
+		contador++;
+		curr = curr->next;
+	}
+	int * newArray = (int*)malloc(sizeof(int) * contador);
+	for (int i = 0; i< contador; i++){
+		newArray[i] = list->data;
+		list = list->next;
+	}
+	*array = newArray;
+	*size = contador;
+	//todo esto no funciona porque me falta el struct, el codigo esta en el campus
+}
+
+	
+void rotarIzquierda(struct node** a){
+	if(*a == 0 || (a*)->next == 0){  //muy importante el orden
+		return;
+	}
+	struct node* last = (a*)->next;
+	struct node* prev = (a*);
+	while(last->next != 0){
+		prev = last;
+		last = last->next;
+	}
+	last->next = *a;
+	prev->next = 0;
+	a* = last;
+}
+
+int main(int argc, char *argv[]) {
+	
+	return 0;
+}
+
