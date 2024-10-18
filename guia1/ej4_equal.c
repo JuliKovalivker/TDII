@@ -3,21 +3,31 @@
 
 void pairOfEquals(char v[], int size, char** a, char** b) {
 
-    // COMPLETAR
+    for(int i = 0; i<size;i++){
+		for(int j = i+1; j<size; j++){
+			if(v[i] == v[j]){
+				*a = &v[i];
+				*b = &v[j];
+				return;
+			}
+		}
+	}
+	*a = 0;
+	*b = 0;
 
 }
 
 int main() {
-    /*
+    
     // -- Descomentar para probar --
     // Lo siguiente es un ejemplo y DEBE ser modificado.
 
-    char v[7] = {9, 4, 5, 6, 1, 4, 1};
+    char v[5] = {9, 5, 6, 4, 1};
 
     char* a;
     char* b;
 
-    pairOfEquals(v, 7, &a, &b);
+    pairOfEquals(v, 8, &a, &b);
 
     if(a == 0 || b == 0) {
         printf("No hay iguales");

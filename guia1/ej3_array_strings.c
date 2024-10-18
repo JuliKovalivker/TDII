@@ -12,14 +12,21 @@ char* longest(char* v[], int size) {
 		}
 		l[i] = j;
 	}
-	l[size] = 0;
-	int mayor = l[0];
-	for (int i = 0; i<size; i++){
+	int mayor = 0;
+	for (int i = 1; i<size; i++){
 		if (l[i] > l[mayor]){
 			mayor = i;
 		}
 	}
-	return v[mayor];
+	printf("%i",l[mayor]);
+	char* c = (char*) malloc( sizeof(char) * (l[mayor])); 
+	
+	for(int i=0;i<l[mayor];i++) { 
+		c[i] = v[mayor][i];
+	}
+	c[l[mayor]]=0;
+	
+	return c;
 }
 
 char* superConcatenate(char* v[], int size) {
@@ -35,7 +42,7 @@ char* superConcatenate(char* v[], int size) {
 		j = 0;
 	}
 	
-	char* c = (char*) malloc( sizeof(char) * cont); 
+	char* c = (char*) malloc( sizeof(char) * (cont)); 
 	i = 0;
 	j = 0;
 	int x = 0;
@@ -48,36 +55,59 @@ char* superConcatenate(char* v[], int size) {
 		i++;
 		j = 0;
 	}
-    return c;
+	c[x] = 0;
+	return c;
 }
 
 char* superConcatenateWithSep(char* v[], int size, char* s) {
-
-    // COMPLETAR
-
-    return 0;
+	int cont = 0;
+	int i = 0;
+	int j = 0;
+	while(v[i]!= 0){
+		while(v[i][j]!=0){
+			j++;
+		}
+		i++;
+		cont += j;
+		j = 0;
+	}
+	
+	char* c = (char*) malloc( sizeof(char) * (cont+1)); 
+	i = 0;
+	j = 0;
+	int x = 0;
+	while(v[i]!= 0){
+		while(v[i][j]!=0){
+			c[x]= v[i][j];
+			j++;
+			x++;
+		}
+		i++;
+		j = 0;
+	}
+	c[x] = 0;
+	return c;
 }
 
 int main() {
 
     char* v[5] = {"hola", "como", "va", "el", "dia"};
 
-    char* l = longest(v, 5);
-
-    printf("El string mas largo es: \"%s\"\n", l);
-
     char* sc = superConcatenate(v, 5);
 
     printf("El arreglo de string super concatenado es: \"%s\"\n", sc);
+	
+	free(sc);
+	
+	char* abc = superConcatenateWithSep(v, 5, "");
 
-    /*char* scs = superConcatenateWithSep(v, 5, "...");
+    printf("El arreglo de string super concatenado con separadores es: \"%s\"\n", abc);
 
-    printf("El arreglo de string super concatenado con separadores es: \"%s\"\n", scs);
+    //free(abc);
 
-    free(sc);
-    free(scs);
-
-    // */
-
+	char* asdd = longest(v, 5);
+	
+	printf("El string mas largo es: \"%s\"\n", abc);
+	
     return 0;
 }
