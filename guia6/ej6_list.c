@@ -7,24 +7,77 @@ struct node {
 };
 
 struct node* addLast(struct node* n, int data) {
-
-    // COMPLETAR
-    
-    return 0;
+	
+	struct node* curr = n;
+	
+	struct node* new_node = (struct node*)malloc(sizeof(struct node));
+	new_node->data = data;
+	new_node->next = 0;
+	
+	if (curr == NULL) {
+		return new_node;
+	}
+	
+	while (curr->next != 0) {
+		curr = curr->next;
+	}
+	
+	curr->next = new_node;
+	
+	return n;
 }
 
 struct node* removeFirst(struct node* n) {
 
-    // COMPLETAR
+    if(n!=0){
+		struct node* temp = n;
+		n = n->next;
+		free(temp);
+	}
     
-    return 0;
+    return n;
 }
 
 struct node* join(struct node* n1, struct node* n2) {
-
-    // COMPLETAR
-    
-    return 0;
+	
+	struct node* new_list = 0;
+	struct node* last = 0;
+	
+	struct node* curr = n1;
+	while (curr != 0) {
+		struct node* new_node = (struct node*)malloc(sizeof(struct node));
+		new_node->data = curr->data;
+		new_node->next = 0;
+		
+		if (new_list == 0) {
+			new_list = new_node;
+			last = new_node;
+		} else {
+			last->next = new_node;
+			last = last->next;
+		}
+		
+		curr = curr->next;
+	}
+	
+	curr = n2;
+	while (curr != 0) {
+		struct node* new_node = (struct node*)malloc(sizeof(struct node));
+		new_node->data = curr->data;
+		new_node->next = 0;
+		
+		if (new_list == 0) {
+			new_list = new_node;
+			last = new_node;
+		} else {
+			last->next = new_node;
+			last = last->next;
+		}
+		
+		curr = curr->next;
+	}
+	
+	return new_list;
 }
 
 struct node* removeData(struct node* n, int data) {
@@ -48,7 +101,7 @@ void printList(struct node* n) {
 }
 
 int main() {
-    /*
+    
     // -- Descomentar para probar --
     // Lo siguiente es un ejemplo y DEBE ser modificado.
 
@@ -79,7 +132,7 @@ int main() {
     n3 = removeFirst(n3);
     printList(n3);
     printf("\n");
-    
+    /*
     printf("RemoveData: 42\n");
     n3 = removeData(n3, 42);
     printList(n3);
