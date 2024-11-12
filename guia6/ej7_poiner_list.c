@@ -65,33 +65,85 @@ void listPrint(struct list* l) {
 }
 
 float magnitudeAverage(struct list* ls) {
+	
+	if (ls == NULL || ls->first == NULL || ls->size == 0) {
+		return 0;
+	}
+	
+	struct node* curr = ls->first;
+	float prom = 0;
+	while(curr!=0){
+		prom += sqrt((curr->data)->x * (curr->data)->x + (curr->data)->y * (curr->data)->y);
+		curr = curr->next;
+	}
 
-    // COMPLETAR
+	prom = prom / ls->size;
     
-    return 0;    
+    return prom;    
 }
 
 int sorted(struct list* ls) {
 
-    // COMPLETAR
+	if (ls == NULL || ls->first == NULL || ls->size == 0) {
+		return 0;
+	}
+	
+    struct node* curr = ls->first;
+	int num = curr->data->i;
+	while(curr->next!=0){
+		if(curr->data->i > curr->next->data->i){
+			return 0;
+		}
+		curr = curr->next;
+	}
     
-    return 0;    
+    return 1;    
 }
 
 void numerate(struct list* ls) {
 
-    // COMPLETAR
+	if (ls == NULL || ls->first == NULL || ls->size == 0) {
+		return;
+	}
+	
+    struct node* curr = ls->first;
+	int i = 0;
+	while(curr!=0){
+		curr->data->t = i;
+		i++;
+		curr = curr->next;
+	}
 
 }
 
 void swap(struct list* ls, int i, int j) {
-
-    // COMPLETAR
-  
+	if (ls == NULL || ls->first == NULL || i < 0 || j < 0 || i >= ls->size || j >= ls->size || i == j) {
+		return;
+	}
+	
+	struct node* curr = ls->first;
+	struct node* node_i = NULL;
+	struct node* node_j = NULL;
+	
+	int index = 0;
+	while (curr != NULL) {
+		if (index == i) {
+			node_i = curr;
+		}
+		if (index == j) {
+			node_j = curr;
+		}
+		curr = curr->next;
+		index++;
+	}
+	
+	struct elem* temp = node_i->data;
+	node_i->data = node_j->data;
+	node_j->data = temp;
 }
 
 int main() {
-    /*
+    
     // -- Descomentar para probar --
     // Lo siguiente es un ejemplo y DEBE ser modificado.
 

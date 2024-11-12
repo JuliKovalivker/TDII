@@ -81,10 +81,27 @@ struct node* join(struct node* n1, struct node* n2) {
 }
 
 struct node* removeData(struct node* n, int data) {
-    
-    // COMPLETAR
-    
-    return 0;
+	
+	struct node* new_list = 0;
+	struct node* curr = n;
+	struct node* i = 0;
+	while (curr != 0) {
+		if(curr->data != data){
+			struct node* new_node = (struct node*)malloc(sizeof(struct node));
+			new_node->data = curr->data;
+			new_node->next = 0;
+			
+			if (new_list == 0) {
+				new_list = new_node;
+				i = new_node;
+			} else {
+				i->next = new_node;
+				i = i->next;
+			}
+		}
+		curr = curr->next;
+	}
+    return new_list;
 }
 
 void printList(struct node* n) {
@@ -112,6 +129,7 @@ int main() {
     printf("Agrego datos a la lista: n1\n");
     n1 = addLast(n1, 2021);
     n1 = addLast(n1, 42);
+	n1 = addLast(n1, 42);
     n1 = addLast(n1, 0x400);
     printList(n1);
     printf("\n");
@@ -132,9 +150,9 @@ int main() {
     n3 = removeFirst(n3);
     printList(n3);
     printf("\n");
-    /*
+    
     printf("RemoveData: 42\n");
-    n3 = removeData(n3, 42);
+    n3 = removeData(n3, 0);
     printList(n3);
     printf("\n");
     
@@ -144,7 +162,7 @@ int main() {
     printList(n3);
     printf("\n");
 
-    // */
+    
 
     return 0;
 }
