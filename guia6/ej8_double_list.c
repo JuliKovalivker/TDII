@@ -44,34 +44,112 @@ void listPrint(struct list* l) {
 
 struct list* addFirst(struct list* l, char* data) {
 
-    // COMPLETAR
+	if(l == NULL){
+		return NULL;
+	}
+    struct node* first = (struct node*)malloc(sizeof(struct node));
+	first->prev = 0;
+	first->data = data;
+	l->size++;
+	if(l->first == NULL){
+		first->next = 0;
+		l->first = first;
+		return l;
+	}
+	first->next = l->first;
+	l->first->prev = first;
+	l->first = first;
     
-    return 0;
+    return l;
 }
 
 struct list* removeFirst(struct list* l) {
 
-    // COMPLETAR
-    
-    return 0;
+    if(l==NULL ||l->first == NULL){
+		return NULL;
+	}
+	if(l->size == 1){
+		struct node* temp = l->first;
+		l->first = NULL;
+		l->size--;
+		free(temp);
+		return l;
+	}
+	if(l->size == 0){
+		return l;
+	}
+	struct node* temp = l->first;
+    l->first = l->first->next;
+	l->first->prev = NULL;
+	l->size--;
+	free(temp);
+    return l;
 }
 
 struct list* removeNode(struct list* l, struct node* n) {
+	if (l == NULL || l->first == NULL) {
+		return NULL;
+	}
+	
+    struct node* curr = l->first;
+	while(curr!=0){
+		if(curr->data == n->data){
+			if(curr->prev == NULL){
+				l->first = curr->next;
+				curr->prev = NULL;
+			}
+			else if(curr->next == NULL){
+				curr->prev->next = NULL;
+			}
+			else{
+				curr->prev->next = curr->next;
+				curr->next->prev = curr->prev;
+			}
+			l->size--;
+			struct node* temp = curr;
+			curr = curr->next;	
+			free(temp);
+		}
+		else{
+			curr = curr->next;	
+		}
+	}
     
-    // COMPLETAR
-    
-    return 0;
+    return l;
 }
 
 struct list* removeNodei(struct list* l, int i) {
 
-    // COMPLETAR
+	if(i>=0 && l->size-1>=i){
+		struct node* curr = l->first;
+		for(int j = 0; j<l->size; j++){
+			if(j == i){
+				struct node* temp = curr;
+				if(i==0){
+					l = removeFirst(l);
+				}
+				else if(curr->next == NULL){
+					curr->prev->next = NULL;
+					l->size--;	
+					free(temp);
+				}
+				else{
+					curr->prev->next = curr->next;
+					curr->next->prev = curr->prev;
+					l->size--;	
+					free(temp);
+				}
+				return l;
+			}
+			curr = curr->next;
+		}
+	}
     
-    return 0;
+    return l;
 }
 
 int main() {
-    /*
+    
     // -- Descomentar para probar --
     // Lo siguiente es un ejemplo y DEBE ser modificado.
 
